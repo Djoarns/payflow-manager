@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.djoarns.payflow</groupId>
-	<artifactId>payflow-manager</artifactId>
+	<artifactId>payflow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>payflow-manager</name>
 	<description>payflow-manager</description>
