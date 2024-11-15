@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ErrorMapper {
     public ErrorResponseDTO toErrorDTO(Exception ex) {
         return new ErrorResponseDTO(
-                ex.getMessage(),
+                ex.getMessage() != null ? ex.getMessage() : "An unexpected error occurred",
                 ex instanceof BillDomainException ? "BUSINESS_ERROR" : "SYSTEM_ERROR",
                 LocalDateTime.now()
         );
