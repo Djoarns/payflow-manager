@@ -1,7 +1,7 @@
 package com.github.djoarns.payflow.domain.bill;
 
-import com.github.djoarns.payflow.domain.bill.exceptions.*;
-import com.github.djoarns.payflow.domain.bill.valueobjects.*;
+import com.github.djoarns.payflow.domain.bill.exception.*;
+import com.github.djoarns.payflow.domain.bill.valueobject.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.domain.bill.valueobjects;
+package com.github.djoarns.payflow.domain.bill.valueobject;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

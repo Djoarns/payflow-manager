@@ -1,7 +1,7 @@
-package com.github.djoarns.payflow.domain.bill.valueobjects;
+package com.github.djoarns.payflow.domain.bill.valueobject;
 
-import com.github.djoarns.payflow.domain.bill.exceptions.InvalidBillDataException;
-import com.github.djoarns.payflow.domain.bill.exceptions.InvalidBillOperationException;
+import com.github.djoarns.payflow.domain.bill.exception.InvalidBillDataException;
+import com.github.djoarns.payflow.domain.bill.exception.InvalidBillOperationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
-package com.github.djoarns.payflow.domain.bill.exceptions;
+package com.github.djoarns.payflow.domain.bill.exception;
 
-import com.github.djoarns.payflow.domain.exceptions.BillDomainException;
+import com.github.djoarns.payflow.domain.exception.BillDomainException;
 
 public class InvalidBillStatusException extends BillDomainException {
     public InvalidBillStatusException(String message) {
