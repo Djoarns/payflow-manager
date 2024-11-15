@@ -1,6 +1,6 @@
 package com.github.djoarns.payflow.domain.bill;
 
-import com.github.djoarns.payflow.domain.bill.valueobjects.BillId;
+import com.github.djoarns.payflow.domain.bill.valueobject.BillId;
 
 import java.time.LocalDate;
 import java.util.List;
