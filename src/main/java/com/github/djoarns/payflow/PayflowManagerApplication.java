@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.payflowmanager;
+package com.github.djoarns.payflow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

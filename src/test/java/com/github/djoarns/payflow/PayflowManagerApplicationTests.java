@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.payflowmanager;
+package com.github.djoarns.payflow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
