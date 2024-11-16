@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.dto.response;
+package com.github.djoarns.payflow.application.bill.dto.response;
 
 import java.time.LocalDateTime;
 

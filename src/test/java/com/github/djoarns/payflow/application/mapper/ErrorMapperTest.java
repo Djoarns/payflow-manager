@@ -1,5 +1,6 @@
 package com.github.djoarns.payflow.application.mapper;
 
+import com.github.djoarns.payflow.application.bill.mapper.ErrorMapper;
 import com.github.djoarns.payflow.domain.bill.exception.InvalidBillDataException;
 import com.github.djoarns.payflow.domain.exception.BillDomainException;
 import com.github.djoarns.payflow.util.BaseUnitTest;

@@ -1,6 +1,7 @@
 package com.github.djoarns.payflow.application.mapper;
 
-import com.github.djoarns.payflow.application.dto.request.BillRequestDTO;
+import com.github.djoarns.payflow.application.bill.dto.request.BillRequestDTO;
+import com.github.djoarns.payflow.application.bill.mapper.BillRequestMapper;
 import com.github.djoarns.payflow.util.BaseUnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

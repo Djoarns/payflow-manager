@@ -1,6 +1,6 @@
-package com.github.djoarns.payflow.application.mapper;
+package com.github.djoarns.payflow.application.bill.mapper;
 
-import com.github.djoarns.payflow.application.dto.response.ErrorResponseDTO;
+import com.github.djoarns.payflow.application.bill.dto.response.ErrorResponseDTO;
 import com.github.djoarns.payflow.domain.exception.BillDomainException;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.result;
+package com.github.djoarns.payflow.application.bill.result;
 
 import com.github.djoarns.payflow.domain.bill.Bill;
 import com.github.djoarns.payflow.domain.bill.valueobject.Amount;

@@ -1,7 +1,7 @@
-package com.github.djoarns.payflow.application.mapper;
+package com.github.djoarns.payflow.application.bill.mapper;
 
-import com.github.djoarns.payflow.application.command.BillCommand;
-import com.github.djoarns.payflow.application.dto.request.BillRequestDTO;
+import com.github.djoarns.payflow.application.bill.command.BillCommand;
+import com.github.djoarns.payflow.application.bill.dto.request.BillRequestDTO;
 import org.springframework.stereotype.Component;
 
 @Component

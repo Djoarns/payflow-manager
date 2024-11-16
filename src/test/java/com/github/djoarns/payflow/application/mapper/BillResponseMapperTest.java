@@ -1,6 +1,7 @@
 package com.github.djoarns.payflow.application.mapper;
 
-import com.github.djoarns.payflow.application.result.BillResult;
+import com.github.djoarns.payflow.application.bill.mapper.BillResponseMapper;
+import com.github.djoarns.payflow.application.bill.result.BillResult;
 import com.github.djoarns.payflow.domain.bill.Bill;
 import com.github.djoarns.payflow.domain.bill.valueobject.*;
 import com.github.djoarns.payflow.util.BaseUnitTest;

@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.dto.response;
+package com.github.djoarns.payflow.application.bill.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

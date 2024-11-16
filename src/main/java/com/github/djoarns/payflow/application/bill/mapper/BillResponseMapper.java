@@ -1,7 +1,7 @@
-package com.github.djoarns.payflow.application.mapper;
+package com.github.djoarns.payflow.application.bill.mapper;
 
-import com.github.djoarns.payflow.application.dto.response.BillResponseDTO;
-import com.github.djoarns.payflow.application.result.BillResult;
+import com.github.djoarns.payflow.application.bill.result.BillResult;
+import com.github.djoarns.payflow.application.bill.dto.response.BillResponseDTO;
 import com.github.djoarns.payflow.domain.bill.Bill;
 import org.springframework.stereotype.Component;
 

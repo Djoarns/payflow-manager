@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.command;
+package com.github.djoarns.payflow.application.bill.command;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

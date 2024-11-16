@@ -1,7 +1,7 @@
-package com.github.djoarns.payflow.application.usecase;
+package com.github.djoarns.payflow.application.bill.usecase;
 
-import com.github.djoarns.payflow.application.command.BillCommand;
-import com.github.djoarns.payflow.application.result.BillResult;
+import com.github.djoarns.payflow.application.bill.command.BillCommand;
+import com.github.djoarns.payflow.application.bill.result.BillResult;
 import com.github.djoarns.payflow.domain.bill.BillRepository;
 import com.github.djoarns.payflow.domain.bill.valueobject.Amount;
 import lombok.RequiredArgsConstructor;

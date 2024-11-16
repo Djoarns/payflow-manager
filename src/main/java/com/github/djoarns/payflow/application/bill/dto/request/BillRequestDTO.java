@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.dto.request;
+package com.github.djoarns.payflow.application.bill.dto.request;
 
 import jakarta.validation.constraints.*;
 
