@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Payflow Database",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "payflow_db",
+      "Username": "payflow_user",
+      "Password": "payflow_pass",
+      "SSLMode": "prefer"
+    }
+  }
+}
