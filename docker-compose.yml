@@ -60,9 +60,13 @@ services:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/payflow_db
-      SPRING_DATASOURCE_USERNAME: payflow_user
-      SPRING_DATASOURCE_PASSWORD: payflow_pass
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION}
+    env_file:
+      - .env
     networks:
       - payflow-network
     restart: unless-stopped
