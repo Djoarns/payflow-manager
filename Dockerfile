@@ -26,6 +26,9 @@ RUN addgroup -S spring && adduser -S spring -G spring
 # Set working directory
 WORKDIR /app
 
+# Create logs directory and set permissions
+RUN mkdir -p /app/logs && chown -R spring:spring /app/logs
+
 # Copy the built artifact from builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
@@ -38,7 +41,7 @@ ENV JAVA_OPTS="-Xms512m -Xmx512m" \
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD wget -q --spider http://localhost:8080/actuator/health || exit 1
+CMD ["wget", "-q", "--spider", "http://localhost:8080/actuator/health", "||", "exit", "1"]
 
 # Expose application port
 EXPOSE 8080
