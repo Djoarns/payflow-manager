@@ -68,4 +68,15 @@ public class Bill {
         }
         this.status = Status.CANCELLED;
     }
+
+    public static Bill reconstitute(
+            BillId id,
+            DueDate dueDate,
+            PaymentDate paymentDate,
+            Amount amount,
+            Description description,
+            Status status
+    ) {
+        return new Bill(id, dueDate, paymentDate, amount, description, status);
+    }
 }
