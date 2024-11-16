@@ -9,13 +9,13 @@
 
     <!-- File Appender -->
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/payflow.log</file>
+        <file>/app/logs/payflow.log</file>
         <encoder>
             <pattern>%d{ISO8601} %-5level [%thread] %logger{36}: %msg%n</pattern>
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/archived/payflow-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/app/logs/archived/payflow-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
