@@ -1,0 +1,503 @@
+{
+  "info": {
+    "name": "PayFlow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Get current date",
+                    "const now = new Date();",
+                    "const year = now.getFullYear();",
+                    "const month = (now.getMonth() + 1).toString().padStart(2, '0');",
+                    "",
+                    "// Set first day of current month",
+                    "pm.environment.set('firstDayOfMonth', `${year}-${month}-01`);",
+                    "",
+                    "// Set last day of current month",
+                    "const lastDay = new Date(year, now.getMonth() + 1, 0).getDate();",
+                    "pm.environment.set('lastDayOfMonth', `${year}-${month}-${lastDay}`);"
+                ]
+            }
+        }
+    ],
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"password123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Basic CRUD",
+      "item": [
+        {
+          "name": "Create Bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"dueDate\": \"{{firstDayOfMonth}}\",\n    \"amount\": 150.00,\n    \"description\": \"Internet Service\"\n}"
+            },
+            "description": "Create a new bill"
+          }
+        },
+        {
+          "name": "Update Bill",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"dueDate\": \"{{firstDayOfMonth}}\",\n    \"amount\": 180.00,\n    \"description\": \"Internet Service - Updated\"\n}"
+            },
+            "description": "Update an existing bill"
+          }
+        },
+        {
+          "name": "Pay Bill",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/1/pay",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "1", "pay"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"paymentDate\": \"2024-11-15\"\n}"
+            },
+            "description": "Mark a bill as paid"
+          }
+        },
+        {
+          "name": "Get Bill by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "1"]
+            },
+            "description": "Get a specific bill by ID"
+          }
+        },
+        {
+          "name": "Import Bills from CSV",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/import",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "import"]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/path/to/test-bills.csv",
+                  "description": "CSV file with bills data"
+                }
+              ]
+            },
+            "description": "Import multiple bills from a CSV file"
+          }
+        }
+      ],
+      "description": "Other bill operations including create, update, pay, and import"
+    },
+    {
+      "name": "3. Bill Searches",
+      "item": [
+        {
+          "name": "Search Bills - Basic",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate=2024-01-01&endDate=2024-12-31&page=0&size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Basic search with date range only"
+          }
+        },
+        {
+          "name": "Search Bills - By Description (Exact)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate=2024-01-01&endDate=2024-12-31&description=Internet Service&page=0&size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                },
+                {
+                  "key": "description",
+                  "value": "Internet Service"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Search bills with exact description match"
+          }
+        },
+        {
+          "name": "Search Bills - By Description (Partial)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate=2024-01-01&endDate=2024-12-31&description=Internet&page=0&size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                },
+                {
+                  "key": "description",
+                  "value": "Internet"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Search bills with partial description match"
+          }
+        },
+        {
+          "name": "Search Bills - Current Month",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate={{firstDayOfMonth}}&endDate={{lastDayOfMonth}}&page=0&size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "{{firstDayOfMonth}}"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{lastDayOfMonth}}"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Search bills for current month"
+          }
+        },
+        {
+          "name": "Search Bills - Next Page",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate=2024-01-01&endDate=2024-12-31&page=1&size=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Get next page of results"
+          }
+        },
+        {
+          "name": "Search Bills - Larger Page Size",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills?startDate=2024-01-01&endDate=2024-12-31&page=0&size=50",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "50"
+                }
+              ]
+            },
+            "description": "Get more results per page"
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Bill Totals",
+      "item": [
+        {
+          "name": "Get Total Paid - Current Month",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/total?startDate={{firstDayOfMonth}}&endDate={{lastDayOfMonth}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "total"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "{{firstDayOfMonth}}"
+                },
+                {
+                  "key": "endDate",
+                  "value": "{{lastDayOfMonth}}"
+                }
+              ]
+            },
+            "description": "Get total paid for current month"
+          }
+        },
+        {
+          "name": "Get Total Paid - Full Year",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/total?startDate=2024-01-01&endDate=2024-12-31",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "total"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                }
+              ]
+            },
+            "description": "Get total paid for full year"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
