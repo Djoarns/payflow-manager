@@ -43,4 +43,8 @@ public class BillRequestMapper {
                 dto.endDate()
         );
     }
+
+    public BillCommand.ChangeStatus toChangeStatusCommand(Long id, BillRequestDTO.ChangeStatus dto) {
+        return new BillCommand.ChangeStatus(id, dto.newStatus());
+    }
 }
