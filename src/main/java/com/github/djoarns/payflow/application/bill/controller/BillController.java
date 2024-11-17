@@ -1,21 +1,27 @@
 package com.github.djoarns.payflow.application.bill.controller;
 
 import com.github.djoarns.payflow.application.bill.command.BillCommand;
+import com.github.djoarns.payflow.application.bill.command.ImportBillsCommand;
 import com.github.djoarns.payflow.application.bill.dto.request.BillRequestDTO;
 import com.github.djoarns.payflow.application.bill.dto.response.BillResponseDTO;
 import com.github.djoarns.payflow.application.bill.mapper.BillRequestMapper;
 import com.github.djoarns.payflow.application.bill.mapper.BillResponseMapper;
 import com.github.djoarns.payflow.application.bill.usecase.*;
+import com.github.djoarns.payflow.domain.bill.exception.InvalidBillOperationException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/bills")
 @RequiredArgsConstructor
@@ -27,6 +33,7 @@ public class BillController {
     private final ListBillsUseCase listBillsUseCase;
     private final FindBillUseCase findBillUseCase;
     private final CalculateTotalPaidUseCase calculateTotalPaidUseCase;
+    private final ImportBillsUseCase importBillsUseCase;
     private final BillRequestMapper requestMapper;
     private final BillResponseMapper responseMapper;
 
@@ -105,5 +112,23 @@ public class BillController {
         );
         var result = calculateTotalPaidUseCase.execute(command);
         return ResponseEntity.ok(responseMapper.toTotalPaidDTO(result, startDate, endDate));
+    }
+
+    @PostMapping("/import")
+    @Operation(summary = "Import bills from CSV file")
+    public ResponseEntity<BillResponseDTO.Import> importBills(@RequestParam("file") MultipartFile file) {
+        try {
+            return ResponseEntity.ok(responseMapper.toImportDTO(
+                    importBillsUseCase.execute(
+                            new ImportBillsCommand(
+                                    file.getInputStream(),
+                                    file.getOriginalFilename()
+                            )
+                    )
+            ));
+        } catch (IOException e) {
+            log.error("Failed to process CSV file", e);
+            throw new InvalidBillOperationException("Failed to process CSV file: " + e.getMessage());
+        }
     }
 }
