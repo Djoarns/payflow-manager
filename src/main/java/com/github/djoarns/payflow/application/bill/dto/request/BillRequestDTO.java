@@ -1,5 +1,6 @@
 package com.github.djoarns.payflow.application.bill.dto.request;
 
+import com.github.djoarns.payflow.domain.bill.valueobject.Status;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -61,5 +62,10 @@ public sealed interface BillRequestDTO {
 
             @NotNull(message = "End date is required")
             LocalDate endDate
+    ) implements BillRequestDTO {}
+
+    record ChangeStatus(
+            @NotNull(message = "New status is required")
+            Status newStatus
     ) implements BillRequestDTO {}
 }
