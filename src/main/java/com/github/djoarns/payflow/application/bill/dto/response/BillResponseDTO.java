@@ -29,4 +29,11 @@ public sealed interface BillResponseDTO {
             LocalDate startDate,
             LocalDate endDate
     ) implements BillResponseDTO {}
+
+    record Import(
+            int totalProcessed,
+            int successCount,
+            int errorCount,
+            String message
+    ) implements BillResponseDTO {}
 }
