@@ -1,14 +1,3 @@
--- Create UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Create bill status enum
-CREATE TYPE bill_status AS ENUM (
-    'PENDING',
-    'PAID',
-    'OVERDUE',
-    'CANCELLED'
-);
-
 -- Create bills table
 CREATE TABLE bills (
                        id BIGSERIAL PRIMARY KEY,
@@ -16,7 +5,7 @@ CREATE TABLE bills (
                        payment_date DATE,
                        amount DECIMAL(10,2) NOT NULL CHECK (amount > 0),
                        description VARCHAR(255) NOT NULL CHECK (LENGTH(TRIM(description)) > 0),
-                       status bill_status NOT NULL DEFAULT 'PENDING',
+                       status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
                        created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                        updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -24,7 +13,8 @@ CREATE TABLE bills (
                        CONSTRAINT payment_date_requires_paid_status CHECK (
                            (status = 'PAID' AND payment_date IS NOT NULL) OR
                            (status != 'PAID' AND payment_date IS NULL)
-                           )
+                           ),
+                       CONSTRAINT valid_status CHECK (status IN ('PENDING', 'PAID', 'OVERDUE', 'CANCELLED'))
 );
 
 -- Create indexes
@@ -54,6 +44,6 @@ COMMENT ON COLUMN bills.due_date IS 'Date when the bill is due';
 COMMENT ON COLUMN bills.payment_date IS 'Date when the bill was paid, null if unpaid';
 COMMENT ON COLUMN bills.amount IS 'Bill amount in the system currency';
 COMMENT ON COLUMN bills.description IS 'Description of what the bill is for';
-COMMENT ON COLUMN bills.status IS 'Current status of the bill';
+COMMENT ON COLUMN bills.status IS 'Current status of the bill (PENDING, PAID, OVERDUE, CANCELLED)';
 COMMENT ON COLUMN bills.created_at IS 'Timestamp when the bill was created';
 COMMENT ON COLUMN bills.updated_at IS 'Timestamp when the bill was last updated';
