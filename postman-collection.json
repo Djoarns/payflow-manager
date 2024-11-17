@@ -199,6 +199,32 @@
             },
             "description": "Import multiple bills from a CSV file"
           }
+        },
+        {
+          "name": "Change Bill Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/bills/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "bills", "1", "status"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"newStatus\": \"CANCELLED\"\n}"
+            },
+            "description": "Change the status of a bill (CANCELLED, OVERDUE, PENDING)"
+          }
         }
       ],
       "description": "Other bill operations including create, update, pay, and import"
