@@ -36,6 +36,7 @@ public class BillController {
     private final ImportBillsUseCase importBillsUseCase;
     private final BillRequestMapper requestMapper;
     private final BillResponseMapper responseMapper;
+    private final ChangeBillStatusUseCase changeBillStatusUseCase;
 
     @PostMapping
     @Operation(summary = "Create a new bill")
@@ -130,5 +131,20 @@ public class BillController {
             log.error("Failed to process CSV file", e);
             throw new InvalidBillOperationException("Failed to process CSV file: " + e.getMessage());
         }
+    }
+
+    @PatchMapping("/{id}/status")
+    @Operation(summary = "Change bill status")
+    public ResponseEntity<BillResponseDTO.Single> changeStatus(
+            @PathVariable Long id,
+            @RequestBody @Valid BillRequestDTO.ChangeStatus request
+    ) {
+        return ResponseEntity.ok(
+                responseMapper.toResponseDTO(
+                        changeBillStatusUseCase.execute(
+                                requestMapper.toChangeStatusCommand(id, request)
+                        ).bill()
+                )
+        );
     }
 }
