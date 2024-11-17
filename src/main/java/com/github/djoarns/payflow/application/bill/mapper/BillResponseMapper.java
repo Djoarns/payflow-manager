@@ -1,7 +1,8 @@
 package com.github.djoarns.payflow.application.bill.mapper;
 
-import com.github.djoarns.payflow.application.bill.result.BillResult;
 import com.github.djoarns.payflow.application.bill.dto.response.BillResponseDTO;
+import com.github.djoarns.payflow.application.bill.result.BillImportResult;
+import com.github.djoarns.payflow.application.bill.result.BillResult;
 import com.github.djoarns.payflow.domain.bill.Bill;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +46,15 @@ public class BillResponseMapper {
                 result.totalPaid().getValue(),
                 startDate,
                 endDate
+        );
+    }
+
+    public BillResponseDTO.Import toImportDTO(BillImportResult result) {
+        return new BillResponseDTO.Import(
+                result.totalProcessed(),
+                result.successCount(),
+                result.errorCount(),
+                result.message()
         );
     }
 }
