@@ -7,8 +7,6 @@ import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class BaseUnitTest {
-
-    // Métodos utilitários comuns para testes
     protected <T> T createMock(Class<T> classToMock) {
         return mock(classToMock);
     }

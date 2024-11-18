@@ -1,4 +1,4 @@
-package com.github.djoarns.payflow.application.usecase;
+package com.github.djoarns.payflow.application.bill.usecase;
 
 import com.github.djoarns.payflow.application.bill.command.BillCommand;
 import com.github.djoarns.payflow.application.bill.usecase.FindBillUseCase;

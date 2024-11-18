@@ -1,7 +1,7 @@
-package com.github.djoarns.payflow.application.mapper;
+package com.github.djoarns.payflow.application.bill.mapper;
 
 import com.github.djoarns.payflow.application.bill.dto.request.BillRequestDTO;
-import com.github.djoarns.payflow.application.bill.mapper.BillRequestMapper;
+import com.github.djoarns.payflow.domain.bill.valueobject.Status;
 import com.github.djoarns.payflow.util.BaseUnitTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,8 +15,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BillRequestMapperTest extends BaseUnitTest {
 
@@ -244,6 +243,75 @@ class BillRequestMapperTest extends BaseUnitTest {
                     Arguments.of(1, 20),
                     Arguments.of(100, 50)
             );
+        }
+    }
+
+    @Nested
+    @DisplayName("toCalculateTotalCommand")
+    class ToCalculateTotalCommand {
+        @Test
+        @DisplayName("Should map calculate total DTO to command")
+        void shouldMapCalculateTotalDtoToCommand() {
+            // Arrange
+            var dto = new BillRequestDTO.CalculateTotal(
+                    LocalDate.now().minusMonths(1),
+                    LocalDate.now()
+            );
+
+            // Act
+            var command = mapper.toCalculateTotalCommand(dto);
+
+            // Assert
+            assertEquals(dto.startDate(), command.startDate());
+            assertEquals(dto.endDate(), command.endDate());
+        }
+
+        @Test
+        @DisplayName("Should handle same start and end date")
+        void shouldHandleSameStartAndEndDate() {
+            // Arrange
+            var date = LocalDate.now();
+            var dto = new BillRequestDTO.CalculateTotal(date, date);
+
+            // Act
+            var command = mapper.toCalculateTotalCommand(dto);
+
+            // Assert
+            assertEquals(date, command.startDate());
+            assertEquals(date, command.endDate());
+        }
+    }
+
+    @Nested
+    @DisplayName("toChangeStatusCommand")
+    class ToChangeStatusCommand {
+        @Test
+        @DisplayName("Should map change status DTO to command")
+        void shouldMapChangeStatusDtoToCommand() {
+            // Arrange
+            var id = 1L;
+            var dto = new BillRequestDTO.ChangeStatus(Status.CANCELLED);
+
+            // Act
+            var command = mapper.toChangeStatusCommand(id, dto);
+
+            // Assert
+            assertEquals(id, command.id());
+            assertEquals(dto.newStatus(), command.newStatus());
+        }
+
+        @Test
+        @DisplayName("Should handle all status values")
+        void shouldHandleAllStatusValues() {
+            // Arrange
+            var id = 1L;
+
+            // Act & Assert
+            for (Status status : Status.values()) {
+                var dto = new BillRequestDTO.ChangeStatus(status);
+                var command = mapper.toChangeStatusCommand(id, dto);
+                assertEquals(status, command.newStatus());
+            }
         }
     }
 }
