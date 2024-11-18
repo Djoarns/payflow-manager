@@ -1,7 +1,6 @@
-package com.github.djoarns.payflow.application.usecase;
+package com.github.djoarns.payflow.application.bill.usecase;
 
 import com.github.djoarns.payflow.application.bill.command.BillCommand;
-import com.github.djoarns.payflow.application.bill.usecase.PayBillUseCase;
 import com.github.djoarns.payflow.domain.bill.Bill;
 import com.github.djoarns.payflow.domain.bill.BillRepository;
 import com.github.djoarns.payflow.domain.bill.exception.InvalidBillDataException;
