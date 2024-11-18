@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class BillResponseMapper {
     public BillResponseDTO.Single toResponseDTO(Bill bill) {
         return new BillResponseDTO.Single(
-                bill.getId().getValue(),
+                bill.getId() != null ? bill.getId().getValue() : null,
                 bill.getDueDate().getValue(),
                 bill.getPaymentDate() != null ? bill.getPaymentDate().getValue() : null,
                 bill.getAmount().getValue(),
@@ -43,7 +43,7 @@ public class BillResponseMapper {
             LocalDate endDate
     ) {
         return new BillResponseDTO.TotalPaid(
-                result.totalPaid().getValue(),
+                result.totalPaid() != null ? result.totalPaid().getValue() : null,
                 startDate,
                 endDate
         );

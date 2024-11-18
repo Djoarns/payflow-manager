@@ -26,6 +26,10 @@ public class CalculateTotalPaidUseCase {
                 .map(bill -> bill.getAmount().getValue())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new BillResult.TotalPaid(Amount.of(total));
+        return new BillResult.TotalPaid(
+                total.compareTo(BigDecimal.ZERO) > 0 ?
+                        Amount.of(total) :
+                        Amount.zero()
+        );
     }
 }

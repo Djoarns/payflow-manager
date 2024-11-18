@@ -23,6 +23,10 @@ public class Amount {
         return new Amount(amount);
     }
 
+    public static Amount zero() {
+        return new Amount(BigDecimal.ZERO);
+    }
+
     public Amount add(Amount other) {
         if (other == null) {
             throw new InvalidBillOperationException("Cannot add null amount");

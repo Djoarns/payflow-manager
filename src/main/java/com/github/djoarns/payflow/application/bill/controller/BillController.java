@@ -34,9 +34,9 @@ public class BillController {
     private final FindBillUseCase findBillUseCase;
     private final CalculateTotalPaidUseCase calculateTotalPaidUseCase;
     private final ImportBillsUseCase importBillsUseCase;
+    private final ChangeBillStatusUseCase changeBillStatusUseCase;
     private final BillRequestMapper requestMapper;
     private final BillResponseMapper responseMapper;
-    private final ChangeBillStatusUseCase changeBillStatusUseCase;
 
     @PostMapping
     @Operation(summary = "Create a new bill")
